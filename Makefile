@@ -225,3 +225,6 @@ docker-unnecessary-clean:
 	@docker ps -a  | grep Exited | awk -F" " '{print $$1}' | xargs  --no-run-if-empty docker rm
 	@echo "Deleting unnecessary image(s)..."
 	@docker images | grep \<none\> | awk -F" " '{print $$3}' | xargs  --no-run-if-empty  docker rmi
+
+qwant:
+	./generate_qwant.sh
