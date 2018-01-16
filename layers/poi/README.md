@@ -8,3 +8,6 @@ Read the layer documentation at **http://openmaptiles.org/schema#poi**
 
 ### ETL diagram
 ![ETL diagram for poi](etl_diagram.png?raw=true)
+
+# Difference for qwant style
+we import all the tags for easier modification.
