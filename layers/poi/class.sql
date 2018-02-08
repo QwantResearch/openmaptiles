@@ -4,8 +4,10 @@ RETURNS INT AS $$
         WHEN 'hospital' THEN 20
         WHEN 'park' THEN 25
         WHEN 'cemetery' THEN 30
+        WHEN 'stadium' THEN 35
         WHEN 'railway' THEN 40
         WHEN 'bus' THEN 50
+        WHEN 'sport' THEN 55
         WHEN 'attraction' THEN 70
         WHEN 'harbor' THEN 75
         WHEN 'college' THEN 80
@@ -64,6 +66,7 @@ RETURNS TEXT AS $$
         WHEN subclass IN ('bag','clothes') THEN 'clothing_store'
         WHEN subclass IN ('swimming_area','swimming') THEN 'swimming'
         WHEN subclass IN ('castle','ruins') THEN 'castle'
+        WHEN subclass IN ('dive_centre', 'sports', 'dojo') THEN 'sport'
         ELSE subclass
     END;
 $$ LANGUAGE SQL IMMUTABLE;
