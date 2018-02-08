@@ -14,8 +14,6 @@ RETURNS INT AS $$
         WHEN 'zoo' THEN 95
         WHEN 'town_hall' THEN 100
         WHEN 'campsite' THEN 110
-        WHEN 'cemetery' THEN 115
-        WHEN 'park' THEN 120
         WHEN 'library' THEN 130
         WHEN 'police' THEN 135
         WHEN 'post' THEN 140
@@ -60,7 +58,7 @@ RETURNS TEXT AS $$
         WHEN subclass IN ('biergarten','pub') THEN 'beer'
         WHEN subclass IN ('music','musical_instrument') THEN 'music'
         WHEN subclass IN ('american_football','stadium','soccer','pitch') THEN 'stadium'
-        WHEN subclass IN ('accessories','antiques','art','artwork','gallery','arts_centre') THEN 'art_gallery'
+        WHEN subclass IN ('antiques','art','artwork','gallery','arts_centre') THEN 'art_gallery'
         WHEN subclass IN ('bag','clothes') THEN 'clothing_store'
         WHEN subclass IN ('swimming_area','swimming') THEN 'swimming'
         WHEN subclass IN ('castle','ruins') THEN 'castle'
