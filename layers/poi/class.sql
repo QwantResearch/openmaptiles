@@ -4,13 +4,13 @@ RETURNS INT AS $$
         WHEN 'hospital' THEN 20
         WHEN 'park' THEN 25
         WHEN 'cemetery' THEN 30
+        WHEN 'stadium' THEN 35
         WHEN 'railway' THEN 40
         WHEN 'bus' THEN 50
         WHEN 'attraction' THEN 70
         WHEN 'harbor' THEN 75
         WHEN 'college' THEN 80
         WHEN 'school' THEN 85
-        WHEN 'stadium' THEN 90
         WHEN 'zoo' THEN 95
         WHEN 'town_hall' THEN 100
         WHEN 'campsite' THEN 110
