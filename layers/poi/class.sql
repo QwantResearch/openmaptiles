@@ -12,7 +12,6 @@ RETURNS INT AS $$
         WHEN 'school' THEN 85
         WHEN 'stadium' THEN 90
         WHEN 'zoo' THEN 95
-        WHEN 'restaurant' THEN 95
         WHEN 'town_hall' THEN 100
         WHEN 'campsite' THEN 110
         WHEN 'cemetery' THEN 115
@@ -26,6 +25,7 @@ RETURNS INT AS $$
         WHEN 'fast_food' THEN 600
         WHEN 'clothing_store' THEN 700
         WHEN 'bar' THEN 800
+        WHEN 'restaurant' THEN 800
         ELSE 1000
     END;
 $$ LANGUAGE SQL IMMUTABLE;
