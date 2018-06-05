@@ -388,7 +388,3 @@ tables:
         building:part: ["no","none","No"]
         man_made: ["bridge"]
     type: relation_member
-
-tags:
-  # Note we want in general to load all tags, so we define it there (but it could have been generated in any layers)
-  load_all: true
