@@ -74,9 +74,7 @@ CREATE OR REPLACE VIEW osm_all_buildings AS (
                   COALESCE(nullif(as_numeric(obp.min_level),-1),nullif(as_numeric(obp.buildingmin_level),-1)) as min_level,
                   CASE WHEN obr.role='outline' THEN TRUE ELSE FALSE END as hide_3d
          FROM
-         osm_building_polygon obp
-           LEFT JOIN osm_building_relation obr ON (obr.member = obp.osm_id)
-         WHERE obp.osm_id >= 0
+         osm_building_polygon WHERE osm_id >= -1e17
 );
 
 CREATE OR REPLACE FUNCTION layer_building(bbox geometry, zoom_level int)
