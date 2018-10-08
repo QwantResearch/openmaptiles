@@ -49,7 +49,6 @@ def_poi_mapping_amenity: &poi_mapping_amenity
   - restaurant
   - school
   - shelter
-  - swimming_pool
   - taxi
   - telephone
   - theatre
@@ -103,7 +102,6 @@ def_poi_mapping_leisure: &poi_mapping_leisure
   - sports_centre
   - stadium
   - swimming_area
-  - swimming_pool
   - water_park
 
 # railway values , see http://taginfo.openstreetmap.org/keys/railway#values
@@ -309,10 +307,6 @@ tables:
   # etldoc: imposm3 -> osm_poi_point
   poi_point:
     type: point
-    filters:
-      reject:
-        leisure: [swimming_pool]
-        amenity: [swimming_pool]
     fields:
     - name: osm_id
       type: id
@@ -366,10 +360,6 @@ tables:
   # etldoc: imposm3 -> osm_poi_polygon
   poi_polygon:
     type: polygon
-    filters:
-      reject:
-        leisure: [swimming_pool]
-        amenity: [swimming_pool]
     fields:
     - name: osm_id
       type: id
