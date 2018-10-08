@@ -309,6 +309,10 @@ tables:
   # etldoc: imposm3 -> osm_poi_point
   poi_point:
     type: point
+    filters:
+      reject:
+        leisure: [swimming_pool]
+        amenity: [swimming_pool]
     fields:
     - name: osm_id
       type: id
@@ -362,6 +366,10 @@ tables:
   # etldoc: imposm3 -> osm_poi_polygon
   poi_polygon:
     type: polygon
+    filters:
+      reject:
+        leisure: [swimming_pool]
+        amenity: [swimming_pool]
     fields:
     - name: osm_id
       type: id
