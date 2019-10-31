@@ -12,21 +12,11 @@ RETURNS REAL AS $$
         min_views CONSTANT REAL := 50.;
         views_count real;
     BEGIN
-        SELECT INTO views_count
-            COALESCE(MAX(wm_stats.views)::real, 0)
-            FROM wm_stats
-            JOIN wd_sitelinks ON (wm_stats.title = wd_sitelinks.title
-                              AND wm_stats.lang = wd_sitelinks.lang)
-            WHERE wd_sitelinks.id = tags->'wikidata';
         RETURN CASE
-            WHEN views_count > min_views THEN
-                0.5 * (1 + LOG(LEAST(max_views, views_count)) / LOG(max_views))
-            WHEN name = '' THEN
-                0.0
+            WHEN name <> '' THEN
+                1 - poi_class_rank(poi_class(subclass, mapping_key))::real / 1000
             ELSE
-                0.5 * (
-                    1 - poi_class_rank(poi_class(subclass, mapping_key))::real / 2000
-                )
+                0.0
         END;
     END
 $$ LANGUAGE plpgsql IMMUTABLE;
@@ -79,7 +69,8 @@ RETURNS TABLE(osm_id bigint, global_id text, geometry geometry, name text, name_
         row_number() OVER (
             PARTITION BY LabelGrid(geometry, 100 * pixel_width)
             ORDER BY poi_display_weight(name, subclass, mapping_key, tags) DESC
-        )::int AS "rank"
+        )::int AS "rank",
+        mapping_key
     FROM (
         -- etldoc: osm_poi_point ->  layer_poi:z12
         -- etldoc: osm_poi_point ->  layer_poi:z13
