@@ -7,10 +7,6 @@ CREATE OR REPLACE FUNCTION poi_display_weight(
     tags hstore
 )
 RETURNS REAL AS $$
-    DECLARE
-        max_views CONSTANT REAL := 1e6;
-        min_views CONSTANT REAL := 50.;
-        views_count real;
     BEGIN
         RETURN CASE
             WHEN name <> '' THEN
