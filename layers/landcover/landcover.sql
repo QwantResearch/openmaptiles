@@ -136,5 +136,6 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, subclass text) AS $$
         -- etldoc:  landcover_z14 -> layer_landcover:z14_
         SELECT *
         FROM landcover_z14 WHERE zoom_level >= 14 AND geometry && bbox
-    ) AS zoom_levels;
+    ) AS zoom_levels
+    ORDER BY ST_Area(geometry) DESC;
 $$ LANGUAGE SQL IMMUTABLE;
