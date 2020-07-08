@@ -76,6 +76,101 @@ def_poi_mapping_barrier: &poi_mapping_barrier
 def_poi_mapping_building: &poi_mapping_building
   - dormitory
 
+# craft values , see https://taginfo.openstreetmap.org/keys/craft#values
+def_poi_mapping_craft: &poi_mapping_craft
+  - carpenter
+  - shoemaker
+  - winery
+  - tailor
+  - photographer
+  - electrician
+  - metal_construction
+  - brewery
+  - plumber
+  - sawmill
+  - electronics_repair
+  - caterer
+  - hvac
+  - confectionery
+  - window_construction
+  - dressmaker
+  - handicraft
+  - gardener
+  - stonemason
+  - painter
+  - glaziery
+  - beekeeper
+  - key_cutter
+  - blacksmith
+  - roofer
+  - upholsterer
+  - pottery
+  - builder
+  - jeweller
+  - joiner
+  - photographic_laboratory
+  - locksmith
+  - distillery
+  - tiler
+  - clockmaker
+  - watchmaker
+  - agricultural_engines
+  - signmaker
+  - optician
+  - tinsmith
+  - sculptor
+  - grinding_mill
+  - scaffolder
+  - boatbuilder
+  - floorer
+  - bookbinder
+  - bakery
+  - plasterer
+  - printer
+  - carpet_layer
+  - saddler
+  - cabinet_maker
+  - welder
+  - print_shop
+  - insulation
+  - dental_technician
+  - chimney_sweeper
+  - sun_protection
+  - parquet_layer
+  - printmaker
+  - car_repair
+  - sailmaker
+  - basket_maker
+  - musical_instrument
+  - toolmaker
+  - atelier
+  - engraver
+  - goldsmith
+  - oil_mill
+  - turner
+  - luthier
+  - organ_builder
+  - leather
+  - rigger
+  - car_painter
+  - embroiderer
+  - sewing
+  - restoration
+  - stand_builder
+  - paver
+  - sweep
+  - door_construction
+  - glassblower
+  - information_electronics
+  - water_well_drilling
+  - piano_tuner
+  - carpet_cleaner
+  - cooper
+  - mint
+  - lacquerer
+  - paperhanger
+  - bag_repair
+
 # highway values , see http://taginfo.openstreetmap.org/keys/highway#values
 def_poi_mapping_highway: &poi_mapping_highway
   - bus_stop
@@ -375,6 +470,7 @@ def_poi_mapping: &poi_mapping
   sport: *poi_mapping_sport
   tourism: *poi_mapping_tourism
   waterway: *poi_mapping_waterway
+  craft: *poi_mapping_craft
 
 tables:
   # etldoc: imposm3 -> osm_poi_point

@@ -64,6 +64,7 @@ RETURNS TEXT AS $$
         WHEN subclass IN ('swimming_area','swimming') THEN 'swimming'
         WHEN subclass IN ('castle','ruins') THEN 'castle'
         WHEN mapping_key IN ('barrier') THEN 'barrier'
+        WHEN mapping_key IN ('craft') THEN 'craft'
         WHEN mapping_key IN ('shop') THEN 'shop'
         ELSE subclass
     END;
