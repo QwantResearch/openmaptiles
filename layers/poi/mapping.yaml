@@ -99,48 +99,6 @@ def_poi_fields: &poi_fields
     key: sport
     type: string
 
-def_poi_base_reject: &poi_base_reject
-  - "yes"
-  - "Yes"
-  - "no"
-  - "No"
-  - "none"
-
-def_poi_amenity_reject: &poi_amenity_reject
-  - bench
-  - drinking_water
-  - fountain
-  - parking_entrance
-  - parking_space
-  - vending_machine
-  - waste_disposal
-  - water_point
-  - "yes"
-  - "Yes"
-  - "no"
-  - "No"
-  - "none"
-
-def_poi_craft_reject: &poi_craft_reject
-  - vacant
-  - "yes"
-  - "Yes"
-  - "no"
-  - "No"
-  - "none"
-
-def_poi_leisure_reject: &poi_leisure_reject
-  - common
-  - nature_reserve
-  - picnic_table
-  - swimming_pool
-  - track
-  - "yes"
-  - "Yes"
-  - "no"
-  - "No"
-  - "none"
-
 def_poi_mapping: &poi_mapping
   aerialway: *poi_mapping_aerialway
   amenity: [__any__]
@@ -157,23 +115,12 @@ def_poi_mapping: &poi_mapping
   tourism: [__any__]
   waterway: *poi_mapping_waterway
 
-def_poi_filters: &poi_filters
-  reject:
-    amenity: *poi_amenity_reject
-    craft: *poi_base_reject
-    shop: *poi_base_reject
-    leisure: *poi_leisure_reject
-    sport: *poi_base_reject
-    tourism: *poi_base_reject
-
-
 tables:
   # etldoc: imposm3 -> osm_poi_point
   poi_point:
     type: point
     fields: *poi_fields
     mapping: *poi_mapping
-    filters: *poi_filters
 
   # etldoc: imposm3 -> osm_poi_polygon
   poi_polygon:
