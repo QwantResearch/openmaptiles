@@ -145,4 +145,5 @@ AS $$
         FROM all_pois(zoom_level)
         WHERE geometry && bbox
     ) as all_pois;
-$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE SQL STABLE
+                PARALLEL SAFE;
