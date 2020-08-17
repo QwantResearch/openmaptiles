@@ -14,13 +14,20 @@ SELECT
                 'reception_desk', 'ticket_validator', 'vending_machine',
                 'waste_disposal', 'water_point'
             )
+        WHEN mapping_key = 'healthcare' THEN
+            name <> ''
+            AND LOWER(subclass) IN (
+                'blood_bank', 'blood_donation', 'center', 'clinic', 'hospice',
+                'hospital'
+            )
         WHEN mapping_key = 'leisure' THEN
             LOWER(subclass) NOT IN (
                 'yes', 'no', 'none', 'common', 'nature_reserve',
                 'picnic_table', 'slipway', 'swimming_pool', 'track'
             )
         WHEN mapping_key = 'office' THEN
-            name <> '' AND LOWER(subclass) NOT IN ('no', 'none')
+            name <> ''
+            AND LOWER(subclass) NOT IN ('no', 'none')
         WHEN mapping_key = 'shop' THEN
             LOWER(subclass) NOT IN ('yes', 'no', 'none', 'vacant')
         ELSE
