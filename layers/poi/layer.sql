@@ -23,7 +23,8 @@ SELECT
             name <> '' AND LOWER(subclass) NOT IN ('no', 'none')
         WHEN mapping_key = 'shop' THEN
             LOWER(subclass) NOT IN ('yes', 'no', 'none', 'vacant')
-        ELSE TRUE
+        ELSE
+            LOWER(subclass) NOT IN ('yes', 'no', 'none')
     END;
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 
