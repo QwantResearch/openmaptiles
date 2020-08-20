@@ -6,30 +6,23 @@ CREATE OR REPLACE FUNCTION poi_filter(
 )
 RETURNS BOOLEAN AS $$
 SELECT
-    LOWER(subclass) NOT IN ('no', 'none')
-    AND (
-        -- mapping keys that allow the subclass `yes`
-        mapping_key IN ('office') OR LOWER(subclass) <> 'yes'
-    )
-    AND (
-        -- mapping keys that disallow empty names
-        mapping_key NOT IN ('office') OR name <> ''
-    )
-    AND CASE
+    CASE
         WHEN mapping_key = 'amenity' THEN
-            subclass NOT IN (
-                'bench', 'clock', 'drinking_water', 'fountain',
-                'parking_entrance', 'parking_space', 'photo_booth',
+            LOWER(subclass) NOT IN (
+                'yes', 'no', 'none', 'bench', 'clock', 'drinking_water',
+                'fountain', 'parking_entrance', 'parking_space', 'photo_booth',
                 'reception_desk', 'ticket_validator', 'vending_machine',
                 'waste_disposal', 'water_point'
             )
-        WHEN mapping_key = 'shop' THEN
-            subclass NOT IN ('vacant')
         WHEN mapping_key = 'leisure' THEN
-            subclass NOT IN (
-                'common', 'nature_reserve', 'picnic_table', 'slipway',
-                'swimming_pool', 'track'
+            LOWER(subclass) NOT IN (
+                'yes', 'no', 'none', 'common', 'nature_reserve',
+                'picnic_table', 'slipway', 'swimming_pool', 'track'
             )
+        WHEN mapping_key = 'office' THEN
+            name <> '' AND LOWER(subclass) NOT IN ('no', 'none')
+        WHEN mapping_key = 'shop' THEN
+            LOWER(subclass) NOT IN ('yes', 'no', 'none', 'vacant')
         ELSE TRUE
     END;
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
