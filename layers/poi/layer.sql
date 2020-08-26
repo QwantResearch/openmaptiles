@@ -1,5 +1,5 @@
--- Filter the imported POIs, mostly by blacklisting some subclasses.
-CREATE OR REPLACE FUNCTION poi_filter(
+-- Filter POIs that will be searchable.
+CREATE OR REPLACE FUNCTION poi_filter_geocoder(
     name varchar,
     subclass varchar,
     mapping_key varchar
@@ -22,11 +22,38 @@ SELECT
                 'picnic_table', 'slipway', 'swimming_pool', 'track'
             )
         WHEN mapping_key = 'office' THEN
-            name <> '' AND LOWER(subclass) NOT IN ('no', 'none')
+            name <> ''
+            AND LOWER(subclass) NOT IN ('no', 'none')
         WHEN mapping_key = 'shop' THEN
             LOWER(subclass) NOT IN ('yes', 'no', 'none', 'vacant')
         ELSE
             LOWER(subclass) NOT IN ('yes', 'no', 'none')
+    END;
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+
+-- Filter POIs that will be displayed on the map.
+--
+-- Note that `all_pois` and `layer_poi` assumes that the displayed POIs is a
+-- subset of the POIs that can be searched.
+CREATE OR REPLACE FUNCTION poi_filter_tiles(
+    name varchar,
+    subclass varchar,
+    mapping_key varchar
+)
+RETURNS BOOLEAN AS $$
+SELECT
+    poi_filter_geocoder(name, subclass, mapping_key)
+    AND CASE
+        WHEN mapping_key = 'healthcare' THEN
+            name <> ''
+            AND LOWER(subclass) IN (
+                'blood_bank', 'blood_donation', 'center', 'clinic', 'hospice',
+                'hospital'
+            )
+        WHEN mapping_key = 'amenity' THEN
+            LOWER(subclass) NOT IN ('doctor')
+        ELSE
+            TRUE
     END;
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 
@@ -69,7 +96,8 @@ RETURNS TEXT AS $$
     );
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 
-
+-- List all POIs that will be searchable, which is a subset of the POIs that
+-- are included in the tiles.
 CREATE OR REPLACE FUNCTION all_pois(zoom_level integer)
 RETURNS TABLE(osm_id bigint, global_id text, geometry geometry, name text, name_en text,
     name_de text, tags hstore, class text, subclass text, agg_stop integer, layer integer,
@@ -137,7 +165,7 @@ AS $$
             WHERE zoom_level >= 14
                 AND (name <> '' OR (subclass <> 'garden' AND subclass <> 'park'))
         ) as poi_union
-    WHERE poi_filter(name, subclass, mapping_key);
+    WHERE poi_filter_geocoder(name, subclass, mapping_key);
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 
 -- etldoc: layer_poi[shape=record fillcolor=lightpink, style="rounded,filled",
@@ -157,6 +185,9 @@ AS $$
         -- etldoc: osm_poi_point ->  layer_poi:z13
         SELECT *
         FROM all_pois(zoom_level)
-        WHERE geometry && bbox
+        WHERE (
+            poi_filter_tiles(name, subclass, mapping_key)
+            AND geometry && bbox
+        )
     ) as all_pois;
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
